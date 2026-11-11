@@ -1,0 +1,30 @@
+# Build
+target/
+*.bin
+
+# Data akun dan log — jangan pernah masuk repo
+data/
+qoder_log.txt
+accounts.json
+*.sqlite
+
+# Proxy berisi kredensial
+proxies/*
+!proxies/list.example.txt
+
+# Cookie sesi
+qoder_cookies.json
+*.cookies.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Probe sekali pakai (hasil eksperimen, bukan bagian tool)
+probe_*.py
+ground_truth.py
+verify_ncc.py
+measure_pz.py
+twocaptcha_probe.py
