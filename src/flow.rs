@@ -255,9 +255,6 @@ enum SessionMode {
     /// Registrasi: alamat email baru + browser baru tiap percobaan. Aliyun
     /// menandai pasangan email+sesi yang gagal, jadi keduanya harus diganti.
     FreshAccount,
-    /// Login: browser baru saja, alamat tetap. Akunnya sudah ada, jadi
-    /// mengganti alamat justru menghilangkan akun yang mau dipakai.
-    FreshBrowser,
     /// Tanpa restart: dipakai kalau sesi tidak boleh hilang sama sekali.
     KeepSession,
 }
@@ -266,16 +263,15 @@ fn solve_captcha(
     bridge: &mut Bridge,
     email: &mut String,
     password: &str,
-    headless: bool,
+    _headless: bool,
 ) -> bool {
-    solve_captcha_mode(bridge, email, password, headless, SessionMode::FreshAccount, true)
+    solve_captcha_mode(bridge, email, password, SessionMode::FreshAccount, true)
 }
 
 fn solve_captcha_mode(
     bridge: &mut Bridge,
     email: &mut String,
     password: &str,
-    headless: bool,
     mode: SessionMode,
     always_reload: bool,
 ) -> bool {

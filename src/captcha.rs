@@ -47,30 +47,6 @@ fn to_gray(img: &DynamicImage) -> Gray {
     }
 }
 
-/// Kernel Gaussian 3x3 [1 2 1; 2 4 2; 1 2 1]/16.
-fn blur3(src: &Gray) -> Gray {
-    let mut out = Gray {
-        w: src.w,
-        h: src.h,
-        px: vec![0.0; src.px.len()],
-    };
-    for y in 1..src.h.saturating_sub(1) {
-        for x in 1..src.w.saturating_sub(1) {
-            let v = src.at(x as isize - 1, y as isize - 1)
-                + 2.0 * src.at(x as isize, y as isize - 1)
-                + src.at(x as isize + 1, y as isize - 1)
-                + 2.0 * src.at(x as isize - 1, y as isize)
-                + 4.0 * src.at(x as isize, y as isize)
-                + 2.0 * src.at(x as isize + 1, y as isize)
-                + src.at(x as isize - 1, y as isize + 1)
-                + 2.0 * src.at(x as isize, y as isize + 1)
-                + src.at(x as isize + 1, y as isize + 1);
-            out.px[y * src.w + x] = v / 16.0;
-        }
-    }
-    out
-}
-
 /// Magnitudo gradien Sobel untuk menonjolkan tepi.
 fn sobel_mag(src: &Gray) -> Gray {
     let mut out = Gray {
